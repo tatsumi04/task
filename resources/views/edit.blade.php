@@ -22,7 +22,8 @@
             
         <div class="maker-edit">
             <label for="maker">メーカー名</label><br>
-            <select id="maker" name="maker_name" value="{{ $product->maker_name }}">
+            <select  id="maker" name="maker_name">
+                <option value="{{ $product->maker_name }}">{{ $product->maker_name }}</option>
                 <option value="企業A">企業A</option>
                 <option value="企業B">企業B</option>
                 <option value="企業C">企業C</option>
@@ -41,7 +42,7 @@
 
         <div class="comment-edit">
             <label for="comm">コメント</label><br>
-            <textarea name="comment" id="comm" cols="30" rows="10" value="{{ $product->comennt }}"></textarea>
+            <textarea name="comment" id="comm" cols="30" rows="10" value="">{{ $product->comment }}</textarea>
         </div>
 
         <div class="picture-edit">

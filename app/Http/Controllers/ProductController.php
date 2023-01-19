@@ -22,10 +22,18 @@ class ProductController extends Controller
     public function exeStore(Request $request){
         //商品情報を受け取る
         $inputs = $request->all();
-
+        $image = $request->file('image_file_name');
+        //dd($image);
         //ブログを登録
-            Product::create($inputs);
-        
+        Product::create($inputs);
+
+        if(isset($image)){
+            $path = $image->store('images', 'public');
+            Product::create([
+                'image_file_name' => $path,
+            ]);        }
+
+       
         \Session::flash('err_msg', '商品を登録しました');
             return redirect(route('commodity'));
     }
@@ -66,5 +74,23 @@ class ProductController extends Controller
         $product = Product::destroy($id);
 
         return redirect(route('list'));
+    }
+
+    //検索
+    public function exeSerch(Request $request){
+        $search = $request->input('search');
+        $category = $request->input('makerName-selecter');
+        
+        if($search){
+            $products = Product::where('title', 'LIKE' , "%{$search}%")->get()->all();
+        }
+        if($category){
+            $products = Product::where('maker_name', 'LIKE' , "%{$category}%")->get()->all();
+        }
+
+
+
+        $params = array('products' => $products, 'search' => $search);
+        return view('list',  ['products' => $products]);
     }
 }

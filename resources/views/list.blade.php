@@ -9,24 +9,29 @@
     </p>
     @endif
 
+    <form method="GET" action="{{ route('serch') }}">
+    @csrf
     <div class="serch-form">
         <h3>検索フォーム</h3>
         <div class="serch-name">
         <label for="serch">商品名</label>
-       <input id="serch" type="text" >
+        <input id="serch" type="text" name="search" >
+    <div>
     </div>
 
     <div class="serch-maker">
         <label for="maker">メーカー名</label>
         <select name="makerName-selecter" id="maker">
-            <option value="a">aaa</option>
-            <option value="b">bbbbbbbb</option>
+            <option value="企業A">企業A</option>
+            <option value="企業B">企業B</option>
+            <option value="企業C">企業C</option>
         </select>
     </div>
 
     <div class="serch">
         <button type="submit" onclick=>検索</button>
     </div>
+    </form>
 
     <div class="return">
         <a href="{{ route('commodity') }}">新規登録</a>
@@ -48,7 +53,7 @@
         @foreach($products as $product)
           <tr>
               <td>{{ $product->id }}</td>
-              <td>>{{ $product->image_file_name }}</td>
+              <td><img src="{{ Storage::url($product->image_file_name) }}" alt=""></td>
               <td><a href="/task/public/detail/{{ $product->id }}">{{ $product->title }}</a></td>
               <td>{{ $product->price }}</td>
               <td>{{ $product->inventory }}</td>

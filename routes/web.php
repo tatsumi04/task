@@ -25,6 +25,8 @@ Route::group(['middleware' => 'auth'], function() {
         //商品情報一覧画面表示
     Route::get('/list', 'ProductController@showList')->name('list');
 
+    Route::GET('/serch', "ProductController@exeSerch")->name('serch');
+
     //商品情報登録画面表示
     Route::get('/commodity', 'ProductController@showCommodity')->name('commodity');
 
