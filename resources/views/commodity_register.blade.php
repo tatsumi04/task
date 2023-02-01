@@ -10,12 +10,12 @@
         <div class="form-com">
             <div class="name-com">
                 <label for="name">商品名</label><br>
-                <input id="name" type="text" name="title">
+                <input id="name" type="text" name="product_name">
             </div>
 
             <div class="maker-com">
                 <label for="maker">メーカー</label><br>
-                <select id="maker" name="maker_name">
+                <select id="maker" name="company_id">
                     <option value="企業A">企業A</option>
                     <option value="企業B">企業B</option>
                     <option value="企業C">企業C</option>
@@ -29,7 +29,7 @@
 
             <div class="inventory-com">
                 <label for="inventory">在庫数</label><br>
-                <input id="inventory" type="text" name="inventory">
+                <input id="inventory" type="text" name="stock">
             </div>
 
             <div class="comment-com">
@@ -39,7 +39,7 @@
 
             <div class="picture-com">
                 <label for="pic">商品画像</label><br>
-                <input id="pic" type="file" name="image_file_name">
+                <input id="pic" type="file" name="image_path">
             </div>
 
             <div class="regist">

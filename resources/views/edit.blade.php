@@ -17,13 +17,13 @@
 
         <div class="name-edit">
             <label for="name">商品名</label><br>
-            <input id="name" type="text" name="title" value="{{ $product->title }}">
+            <input id="name" type="text" name="product_name" value="{{ $product->product_name }}">
         </div>
             
         <div class="maker-edit">
             <label for="maker">メーカー名</label><br>
-            <select  id="maker" name="maker_name">
-                <option value="{{ $product->maker_name }}">{{ $product->maker_name }}</option>
+            <select  id="maker" name="company_id">
+                <option value="{{ $product->company_id }}">{{ $product->company_id }}</option>
                 <option value="企業A">企業A</option>
                 <option value="企業B">企業B</option>
                 <option value="企業C">企業C</option>
@@ -35,9 +35,9 @@
             <input id="price" type="text" name="price" value="{{ $product->price }}">
         </div>
 
-        <div class="inventory-edit">
-            <label for="inventory">在庫数</label><br>
-            <input id="inventory" type="text"  name="inventory" value="{{ $product->inventory }}">
+        <div class="stock-edit">
+            <label for="stock">在庫数</label><br>
+            <input id="stock" type="text"  name="stock" value="{{ $product->stock }}">
         </div>
 
         <div class="comment-edit">
@@ -47,7 +47,8 @@
 
         <div class="picture-edit">
             <label for="pic">商品画像</label><br>
-            <input id="pic" type="file" name="image_file_name" value="{{ $product->image_file_name }}">
+            <img src="{{ asset('storage/'.$product->image_path) }}" class="img" height="300" width="300">
+            <input id="pic" type="file" name="image_path">
         </div>
         
         <div class="update">

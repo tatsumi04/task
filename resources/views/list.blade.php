@@ -22,6 +22,7 @@
     <div class="serch-maker">
         <label for="maker">メーカー名</label>
         <select name="makerName-selecter" id="maker">
+        <option value="未選択">未選択</option>
             <option value="企業A">企業A</option>
             <option value="企業B">企業B</option>
             <option value="企業C">企業C</option>
@@ -53,11 +54,11 @@
         @foreach($products as $product)
           <tr>
               <td>{{ $product->id }}</td>
-              <td><img src="{{ Storage::url($product->image_file_name) }}" alt=""></td>
-              <td><a href="/task/public/detail/{{ $product->id }}">{{ $product->title }}</a></td>
+              <td>{{ Storage::url($product->image_path) }}</td>
+              <td><a href="/task/public/detail/{{ $product->id }}">{{ $product->product_name }}</a></td>
               <td>{{ $product->price }}</td>
-              <td>{{ $product->inventory }}</td>
-              <td>{{ $product->maker_name }}</td>
+              <td>{{ $product->stock }}</td>
+              <td>{{ $product->company_id }}</td>
               <td><a href="/task/public/detail/{{ $product->id }}">詳細表示</a></td>
               <form method="POST" action="{{ route('delete' , $product->id) }}" onSubmit="return checkDelete()">
               @csrf

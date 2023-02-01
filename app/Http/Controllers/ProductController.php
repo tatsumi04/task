@@ -22,7 +22,7 @@ class ProductController extends Controller
     public function exeStore(Request $request){
         //商品情報を受け取る
         $inputs = $request->all();
-        $image = $request->file('image_file_name');
+        $image = $request->file('image_path');
         //dd($image);
         //ブログを登録
         Product::create($inputs);
@@ -30,8 +30,9 @@ class ProductController extends Controller
         if(isset($image)){
             $path = $image->store('images', 'public');
             Product::create([
-                'image_file_name' => $path,
-            ]);        }
+                'image_path' => $path,
+            ]);
+        }
 
        
         \Session::flash('err_msg', '商品を登録しました');
@@ -56,15 +57,25 @@ class ProductController extends Controller
         $inputs = $request->all();
         
         $product = Product::find($inputs['id']);
+        $image = $request->file('image_path');
+        $path = $request->image_path;
+        if (isset($image)) {
+            // 現在の画像ファイルの削除
+            \Storage::disk('public')->delete($path);
+            // 選択された画像ファイルを保存してパスをセット
+            $path = $image->store('images', 'public');
+        }
+
             $product->fill([
-                'title' =>$inputs['title'],
+                'product_name' =>$inputs['product_name'],
                 'price' =>$inputs['price'],
-                'inventory' =>$inputs['inventory'], 
-                'maker_name' =>$inputs['maker_name'],
-                'comment' =>$inputs['comment']
+                'stock' =>$inputs['stock'], 
+                'company_id' =>$inputs['company_id'],
+                'comment' =>$inputs['comment'],
+                'image_path' =>$path
             ]);
             $product->save();
-        
+        //dd($product);
         \Session::flash('err_msg', 'ブログを更新しました');
             return view('edit', ['product' => $product]);
     }
@@ -82,13 +93,14 @@ class ProductController extends Controller
         $category = $request->input('makerName-selecter');
         
         if($search){
-            $products = Product::where('title', 'LIKE' , "%{$search}%")->get()->all();
+            $products = Product::where('product_name', 'LIKE' , "%{$search}%")->get()->all();
         }
-        if($category){
-            $products = Product::where('maker_name', 'LIKE' , "%{$category}%")->get()->all();
+        if($category != '未選択'){
+            $products = Product::where('company_id', 'LIKE' , "%{$category}%")->get()->all();
         }
-
-
+        if($search && $category != '未選択'){
+            $products = Product::whereProduct_name('product_name', 'LIKE' , "%{$search}%")->orWhere('company_id', 'LIKE' , "%{$category}%");
+        }
 
         $params = array('products' => $products, 'search' => $search);
         return view('list',  ['products' => $products]);

@@ -12,11 +12,11 @@ class Product extends Model
     //可変項目
     protected $fillable =
     [
-        'image_file_name',
-        'title',
+        'image_path',
+        'product_name',
         'price',
-        'inventory', 
-        'maker_name',
+        'stock', 
+        'company_id',
         'comment'
     ];
     
