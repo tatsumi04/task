@@ -13,7 +13,7 @@ class ProductRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,13 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'product_name' => 'required | max:20',
+            'price' => 'required | max:20',
+            'stock' => 'required | max:20',
+            'stock' => 'required | max:20',
+            'company_id' => 'required',
+            'comment' => 'nullable',
+            'image_path' => 'nullable',
         ];
     }
 }

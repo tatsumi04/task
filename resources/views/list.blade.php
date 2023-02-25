@@ -63,6 +63,7 @@
               <form method="POST" action="{{ route('delete' , $product->id) }}" onSubmit="return checkDelete()">
               @csrf
               <td><button type="submit" class="delete" onclick=>削除</button></td>       
+              </form>
           </tr>
           @endforeach
     </table>
