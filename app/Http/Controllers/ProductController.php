@@ -28,24 +28,23 @@ class ProductController extends Controller
         try{
             //商品情報を受け取る
             $model = new Product();
-            $inputs = $model->getList(); 
-                      
+            //$inputs = $model->getList();             
             $image = $request->file('image_path');
-            //ブログを登録
-            $model->registProduct($request);
-    
-            if(isset($image)){
+
+            //商品を登録
+            if($image){
                 $path = $image->store('images', 'public');
-                Product::create([
-                    'image_path' => $path,
-                ]);
+                $model->registProduct($request ,$path);
+                //Product::create([
+                //    'image_path' => $path,
+                //]);
             }
-            DB::commit();
-        }catch (\Exception $e) {
-            DB::rollback();
-            return back();
-        }
-        \Session::flash('err_msg', '商品を登録しました');
+             DB::commit();
+         }catch (\Exception $e) {
+             DB::rollback();
+             return back();
+         }
+         \Session::flash('err_msg', '商品を登録しました');
             return redirect(route('commodity'));
     }
 
@@ -65,7 +64,7 @@ class ProductController extends Controller
     public function exeUpdate(ProductRequest $request){
         DB::beginTransaction();
         try{
-            //ブログデータを受け取る
+            //商品データを受け取る
             $model = new Product();
             $inputs = $model->getList();
 
@@ -108,7 +107,7 @@ class ProductController extends Controller
             return view('edit', ['product' => $product]);
     }
 
-    //ブログ削除
+    //商品情報削除
     public function exeDelete($id){
         try{
             $product = Product::destroy($id);
