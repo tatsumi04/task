@@ -11,7 +11,7 @@
       @endif
 
       <div class="commodity-detail">
-        <p>商品画像</br><img src="{{ asset('storage/'.$product->image_path) }}" class="img" height="300" width="300"></p>
+        <p>商品画像</br><img src="{{ asset('storage/'.$product->img_path) }}" class="img" height="300" width="300"></p>
 
         <p>商品名</br>{{ $product->product_name }}</p>
         <p>メーカー名</br>{{ $product->company_id }}</p>

@@ -47,8 +47,8 @@
 
         <div class="picture-edit">
             <label for="pic">商品画像</label><br>
-            <img src="{{ asset('storage/'.$product->image_path) }}" class="img" height="300" width="300">
-            <input id="pic" type="file" name="image_path">
+            <img src="{{ asset('storage/'.$product->img_path) }}" class="img" height="300" width="300">
+            <input id="pic" type="file" name="img_path">
         </div>
         
         <div class="update">

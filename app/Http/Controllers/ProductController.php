@@ -29,14 +29,14 @@ class ProductController extends Controller
             //商品情報を受け取る
             $model = new Product();
             //$inputs = $model->getList();             
-            $image = $request->file('image_path');
+            $image = $request->file('img_path');
 
             //商品を登録
             if($image){
                 $path = $image->store('images', 'public');
                 $model->registProduct($request ,$path);
                 //Product::create([
-                //    'image_path' => $path,
+                //    'img_path' => $path,
                 //]);
             }
              DB::commit();
@@ -62,24 +62,18 @@ class ProductController extends Controller
 
     //商品情報を更新
     public function exeUpdate(ProductRequest $request){
-        DB::beginTransaction();
-        try{
+        //DB::beginTransaction();
+        //try{
             //商品データを受け取る
             $model = new Product();
             $inputs = $model->getList();
 
-            $product = Product::find($request->id);
-            $image = $request->file('image_path');
-            $path = $request->image_path;
+            $product = Product::where('id', '=', '6')->get();
+            $image = $request->file('img_path');
+            $path = $request->img_path;
 
-            $product->fill([
-                'product_name' =>$request->product_name,
-                'price' =>$request->price,
-                'stock' =>$request->stock, 
-                'company_id' =>$request->company_id,
-                'comment' =>$request->comment,
-            ]);
-            $product->save();
+            //dd($product);
+            $model->updateProduct($request);
             
             if (isset($image)) {
                 // 現在の画像ファイルの削除
@@ -87,21 +81,13 @@ class ProductController extends Controller
                 // 選択された画像ファイルを保存してパスをセット
                 $path = $image->store('images', 'public');
 
-                $product->fill([
-                    'product_name' =>$request->product_name,
-                    'price' =>$request->price,
-                    'stock' =>$request->stock, 
-                    'company_id' =>$request->company_id,
-                    'comment' =>$request->comment,
-                    'image_path' =>$path
-                ]);
-                $product->save();
+                $model->updateProductImg($request, $path);
             }
-            DB::commit();
-        }catch (\Exception $e) {
-            DB::rollback();
-            return back();
-        }
+        //     DB::commit();
+        // }catch (\Exception $e) {
+        //     DB::rollback();
+        //     return back();
+        // }
         
         \Session::flash('err_msg', 'ブログを更新しました');
             return view('edit', ['product' => $product]);

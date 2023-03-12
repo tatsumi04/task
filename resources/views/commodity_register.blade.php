@@ -39,7 +39,7 @@
 
             <div class="picture-com">
                 <label for="pic">商品画像</label><br>
-                <input id="pic" type="file" name="image_path">
+                <input id="pic" type="file" name="img_path">
             </div>
 
             <div class="regist">
