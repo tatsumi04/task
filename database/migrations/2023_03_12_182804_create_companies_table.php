@@ -20,8 +20,8 @@ class CreateCompaniesTable extends Migration
             $table->string('representative_name');
             $table->timestamps();
 
-            $table->foreignId('company_id')->constrained('products')->onDelete('cascade');
-            //$table->foreignId('id')->references('company_name')->onDelete('cascade');
+            //$table->foreignId('company_id')->constrained('products')->onDelete('cascade');
+            //$table->foreignId('id')->references('company_name')->onDelete('cascade')->onDelete('cascade');
         });
     }
 

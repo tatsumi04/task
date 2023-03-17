@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Company;
+use App\Models\Sale;
 use App\Http\Requests\ProductRequest;
 use Illuminate\Support\Facades\DB;
 
@@ -19,31 +21,32 @@ class ProductController extends Controller
 
     //商品登録画面を表示
     public function showCommodity(){
-        return view('commodity_register');
+        $company = new Company();        
+        $companies = $company->getCompanyList();
+ 
+        return view('commodity_register', ['companies' => $companies]);
     }
 
     //商品登録
     public function exeStore(ProductRequest $request){
-        DB::beginTransaction();
-        try{
+        //DB::beginTransaction();
+        //try{
             //商品情報を受け取る
-            $model = new Product();
+            $model = new Product(); 
             //$inputs = $model->getList();             
-            $image = $request->file('img_path');
+            $image = $request->file('img_path');            
 
             //商品を登録
             if($image){
                 $path = $image->store('images', 'public');
                 $model->registProduct($request ,$path);
-                //Product::create([
-                //    'img_path' => $path,
-                //]);
+                
             }
-             DB::commit();
-         }catch (\Exception $e) {
-             DB::rollback();
-             return back();
-         }
+        //      DB::commit();
+        //  }catch (\Exception $e) {
+        //      DB::rollback();
+        //      return back();
+        //  }
          \Session::flash('err_msg', '商品を登録しました');
             return redirect(route('commodity'));
     }
@@ -68,7 +71,7 @@ class ProductController extends Controller
             $model = new Product();
             $inputs = $model->getList();
 
-            $product = Product::where('id', '=', '6')->get();
+            //$product = Product::where('id', $request->id)->get();
             $image = $request->file('img_path');
             $path = $request->img_path;
 

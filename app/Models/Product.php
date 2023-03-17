@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use App\Models\Sale;
+use App\Models\Company;
 
 class Product extends Model
 {
@@ -41,7 +44,7 @@ class Product extends Model
     }
 
     public function updateProduct($data){
-        $product = DB::table('products')->update([
+        $product = DB::table('products')->where('id', $request->id)->update([
             'product_name' => $data->product_name,
             'price' => $data->price,
             'stock' => $data->stock, 
@@ -61,5 +64,12 @@ class Product extends Model
             'img_path' => $path,
         ]);
         //$product->save();
+    }
+
+    public function sales(){
+        return $this->hasMany(Sale::class);
+    }
+    public function company(){
+        return $this->belongsTo(company::class,  'id', 'company_id');
     }
 }

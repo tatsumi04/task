@@ -15,10 +15,10 @@
 
             <div class="maker-com">
                 <label for="maker">メーカー</label><br>
-                <select id="maker" name="company_id">
-                    <option value="企業A">企業A</option>
-                    <option value="企業B">企業B</option>
-                    <option value="企業C">企業C</option>
+                <select id="maker" name="company_name">
+                @foreach($companies as $company)
+                    <option value="{{ $company->company_name }}">{{ $company->company_name }}</option>
+                @endforeach    
                 </select>
             </div>
 

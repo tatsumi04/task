@@ -58,7 +58,7 @@
               <td><a href="/task/public/detail/{{ $product->id }}">{{ $product->product_name }}</a></td>
               <td>{{ $product->price }}</td>
               <td>{{ $product->stock }}</td>
-              <td>{{ $product->company_id }}</td>
+              <td>{{ $product->company->id }}</td>
               <td><a href="/task/public/detail/{{ $product->id }}">詳細表示</a></td>
               <form method="POST" action="{{ route('delete' , $product->id) }}" onSubmit="return checkDelete()">
               @csrf
