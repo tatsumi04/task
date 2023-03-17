@@ -12,7 +12,7 @@
 
       <form method="POST" action="{{ route('update') }}" onSubmit="return checkSubmit()" enctype="multipart/form-data">
       @csrf
-      <input type="hidden" name="id" value="{{ $product->id }}">
+      <input type="hidden" name="id" value="{{ $product->products_id }}">
       <div class="com-info"> 
 
         <div class="name-edit">
@@ -23,10 +23,10 @@
         <div class="maker-edit">
             <label for="maker">メーカー名</label><br>
             <select  id="maker" name="company_id">
-                <option value="{{ $product->company_id }}">{{ $product->company_id }}</option>
-                <option value="企業A">企業A</option>
-                <option value="企業B">企業B</option>
-                <option value="企業C">企業C</option>
+                <option value="{{ $product->company_id }}">{{ $product->company_name }}</option>
+                @foreach($companies as $company)
+                    <option value="{{ $company->id }}">{{ $company->company_name }}</option>
+                @endforeach    
             </select>
         </div>
 
@@ -58,7 +58,7 @@
       </form>
 
       <div class="return">
-            <button type="submit" name="" onclick="location.href='/task/public/detail/{{ $product->id }}'">戻る</button>
+            <button type="submit" name="" onclick="location.href='/task/public/detail/{{ $product->products_id }}'">戻る</button>
       </div>
 
       <script>

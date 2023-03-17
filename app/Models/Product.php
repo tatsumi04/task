@@ -23,13 +23,58 @@ class Product extends Model
     ];
 
     public function getList(){
-        $products = DB::table('products')->get();
+        $products = \DB::table('products')
+        ->select(
+            'products.id as products_id',
+            'company_id',
+            'company_name',
+            'product_name',
+            'price',
+            'stock',
+            'comment',
+            'img_path',
+
+        )
+        ->leftjoin(
+            'companies',
+            'companies.id', '=', 'products.company_id',
+            
+        )->get();
+        
+        return $products;
+    }
+
+    public function getDetail($id){
+        $products = \DB::table('products')
+        ->select(
+            'products.id as products_id',
+            'company_id',
+            'company_name',
+            'product_name',
+            'price',
+            'stock',
+            'comment',
+            'img_path',
+
+        )
+        ->where('products.id',$id)
+        ->leftjoin(
+            'companies',
+            'companies.id', '=', 'products.company_id',
+            
+        )->first();
+        
+        return $products;
+    }
+
+    public function getCompanyAll(){
+        $products = \DB::table('companies')->get();
         return $products;
     }
     
     public function registProduct($data, $path){
         DB::table('products')->insert([
-            'company_id' => $data->company_id,
+            'company_name' => $data->company_id,
             'product_name' => $data->product_name,
             'price' => $data->price,
             'stock' => $data->stock,
@@ -37,14 +82,14 @@ class Product extends Model
             'img_path' => $path,
         ]);
     }
-
-    public function findId($id){
+public function findId($id){
         $products = DB::table('products')->find($id);
         return $products;
     }
+    
 
     public function updateProduct($data){
-        $product = DB::table('products')->where('id', $request->id)->update([
+        $product = DB::table('products')->where('id', $data->id)->update([
             'product_name' => $data->product_name,
             'price' => $data->price,
             'stock' => $data->stock, 
@@ -55,7 +100,7 @@ class Product extends Model
     }
 
     public function updateProductImg($data, $path){
-        $product = DB::table('products')->update([
+        $product = DB::table('products')->where('id', $data->id)->update([
             'product_name' => $data->product_name,
             'price' => $data->price,
             'stock' => $data->stock, 

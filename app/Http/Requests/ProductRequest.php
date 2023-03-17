@@ -27,10 +27,9 @@ class ProductRequest extends FormRequest
             'product_name' => 'required | max:20',
             'price' => 'required | max:20',
             'stock' => 'required | max:20',
-            'stock' => 'required | max:20',
             'company_id' => 'required',
             'comment' => 'nullable',
-            'image_path' => 'nullable',
+            'img_path' => 'nullable',
         ];
     }
 }

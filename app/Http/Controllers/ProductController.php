@@ -27,15 +27,17 @@ class ProductController extends Controller
         return view('commodity_register', ['companies' => $companies]);
     }
 
+
     //商品登録
     public function exeStore(ProductRequest $request){
         //DB::beginTransaction();
         //try{
             //商品情報を受け取る
+            // dd("aaa");
             $model = new Product(); 
             //$inputs = $model->getList();             
             $image = $request->file('img_path');            
-
+            //dd($image);
             //商品を登録
             if($image){
                 $path = $image->store('images', 'public');
@@ -53,14 +55,19 @@ class ProductController extends Controller
 
     //商品情詳細画面を表示
     public function showDetail($id){
-        $product = Product::find($id);
+        $model = new Product();
+        $product = $model->getDetail($id);
+
         return view('detail', ['product' => $product]);
     }
 
     //商品情編集画面を表示
     public function showEdit($id){
-        $product = Product::find($id);
-        return view('edit', ['product' => $product]);
+        $model = new Product();
+        $product = $model->getDetail($id);
+        $company = $model->getCompanyAll();
+
+        return view('edit', ['product' => $product, 'companies' => $company]);
     }
 
     //商品情報を更新
@@ -69,7 +76,8 @@ class ProductController extends Controller
         //try{
             //商品データを受け取る
             $model = new Product();
-            $inputs = $model->getList();
+            $product = $model->getDetail($request->id);
+            $company = $model->getCompanyAll();
 
             //$product = Product::where('id', $request->id)->get();
             $image = $request->file('img_path');
@@ -93,7 +101,7 @@ class ProductController extends Controller
         // }
         
         \Session::flash('err_msg', 'ブログを更新しました');
-            return view('edit', ['product' => $product]);
+            return view('edit', ['product' => $product, 'companies' => $company]);
     }
 
     //商品情報削除

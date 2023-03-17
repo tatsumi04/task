@@ -14,7 +14,7 @@
         <p>商品画像</br><img src="{{ asset('storage/'.$product->img_path) }}" class="img" height="300" width="300"></p>
 
         <p>商品名</br>{{ $product->product_name }}</p>
-        <p>メーカー名</br>{{ $product->company->id }}</p>
+        <p>メーカー名</br>{{ $product->company_name }}</p>
         <p>価格</br>{{ $product->price }}</p>
         <p>在庫数</br>{{ $product->stock }}</p>
         <p>コメント</br>{{ $product->comment }}</p>
@@ -22,7 +22,7 @@
 
 
       <div class="edit">
-        <button type="submit" onclick="location.href='/task/public/edit/{{ $product->id }}'">編集</button>
+        <button type="submit" onclick="location.href='/task/public/edit/{{ $product->products_id }}'">編集</button>
       </div>
       
       <div class="return">

@@ -4,7 +4,7 @@
 <div class="register-com">
     <div class="title-com col-md-8 col-md-offset-2">
         <h2>商品登録フォーム</h2>
-        <form method="POST" action="{{ route('store') }}" onSubmit="return checkSubmit()" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('exestore') }}" onSubmit="return checkSubmit()" enctype="multipart/form-data">
         @csrf
 
         <div class="form-com">
@@ -15,9 +15,9 @@
 
             <div class="maker-com">
                 <label for="maker">メーカー</label><br>
-                <select id="maker" name="company_name">
+                <select id="maker" name="company_id">
                 @foreach($companies as $company)
-                    <option value="{{ $company->company_name }}">{{ $company->company_name }}</option>
+                    <option value="{{ $company->id }}">{{ $company->company_name }}</option>
                 @endforeach    
                 </select>
             </div>
@@ -47,8 +47,9 @@
             </div>
 
             <div class="return">
-                <button type="botton" name="" onclick="location.href='{{ route('list') }}'">戻る</button>
+            <a href="{{ route('list')}}"><input type="button" name="" id="" value="戻る"></a>
             </div>
+            
         </div>
         
         </form>

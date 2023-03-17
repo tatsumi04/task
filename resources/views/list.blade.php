@@ -53,14 +53,14 @@
 
         @foreach($products as $product)
           <tr>
-              <td>{{ $product->id }}</td>
+              <td>{{ $product->products_id }}</td>
               <td><img src="{{ asset('storage/'.$product->img_path) }}" class="img" height="30" width="30"></td>
-              <td><a href="/task/public/detail/{{ $product->id }}">{{ $product->product_name }}</a></td>
+              <td><a href="/task/public/detail/{{ $product->products_id }}">{{ $product->product_name }}</a></td>
               <td>{{ $product->price }}</td>
               <td>{{ $product->stock }}</td>
-              <td>{{ $product->company->id }}</td>
-              <td><a href="/task/public/detail/{{ $product->id }}">詳細表示</a></td>
-              <form method="POST" action="{{ route('delete' , $product->id) }}" onSubmit="return checkDelete()">
+              <td>{{ $product->company_name }}</td>
+              <td><a href="/task/public/detail/{{ $product->products_id }}">詳細表示</a></td>
+              <form method="POST" action="{{ route('delete' , $product->products_id) }}" onSubmit="return checkDelete()">
               @csrf
               <td><button type="submit" class="delete" onclick=>削除</button></td>       
               </form>

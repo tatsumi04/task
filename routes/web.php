@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/commodity', 'ProductController@showCommodity')->name('commodity');
 
     //商品登録
-    Route::post('/store', "ProductController@exeStore")->name('store');
+    Route::post('/store', "ProductController@exeStore")->name('exestore');
 
     //商品情報詳細画面表示
     Route::get('/detail/{id}', 'ProductController@showDetail')->name('detail');
